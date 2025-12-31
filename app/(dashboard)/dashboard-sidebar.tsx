@@ -130,7 +130,7 @@ export function DashboardSidebar({ user }: DashboardSidebarProps) {
               )}
             </div>
           </PopoverTrigger>
-          <PopoverPopup>
+          <PopoverPopup className="[&_[data-slot=popover-viewport]]:p-1">
             <Button
               variant="destructive"
               className="w-full justify-start"
