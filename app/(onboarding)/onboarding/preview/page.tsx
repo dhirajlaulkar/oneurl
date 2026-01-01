@@ -2,8 +2,7 @@ import { requireAuth } from "@/lib/auth-guard";
 import { profileService } from "@/lib/services/profile.service";
 import PreviewClient from "./preview-client";
 import { getAvatarUrl } from "@/lib/utils";
-import { ProfilePreview } from "@/components/profile-preview";
-import type { Link } from "@/lib/hooks/use-links";
+import { PreviewWrapper } from "./preview-wrapper";
 
 export default async function PreviewPage() {
   const session = await requireAuth();
@@ -17,15 +16,6 @@ export default async function PreviewPage() {
     );
   }
 
-  const links: Link[] = (profile.profile?.links || []).map((link) => ({
-    id: link.id,
-    title: link.title,
-    url: link.url,
-    icon: link.icon || undefined,
-    position: link.position,
-    isActive: link.isActive,
-  }));
-
   return (
     <div className="w-full max-w-4xl mx-auto flex flex-col gap-8 px-4 py-12">
       <div className="space-y-2 text-center">
@@ -36,14 +26,13 @@ export default async function PreviewPage() {
       </div>
 
       <div className="mx-auto w-full">
-        <ProfilePreview
-          name={profile.name}
-          username={profile.username}
-          bio={profile.bio || null}
-          avatarUrl={getAvatarUrl(profile)}
-          title={profile.profile?.title || null}
-          links={links}
-          calLink={profile.profile?.calLink || null}
+        <PreviewWrapper
+          initialName={profile.name}
+          initialUsername={profile.username}
+          initialBio={profile.bio || null}
+          initialAvatarUrl={getAvatarUrl(profile)}
+          initialTitle={profile.profile?.title || null}
+          initialCalLink={profile.profile?.calLink || null}
         />
       </div>
 

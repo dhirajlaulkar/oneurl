@@ -2,39 +2,36 @@ import Image from "next/image";
 
 export function LandingFooter() {
   return (
-    <footer className="bg-primary text-primary-foreground pt-24 pb-12">
-      <div className="container mx-auto px-4">
-         <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-24">
-             <div className="space-y-6">
+    <footer className="border-t-2 border-dashed border-zinc-200 bg-zinc-100 pt-12 pb-12">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+         <div className="flex flex-col md:flex-row justify-between gap-8 mb-12">
+             <div className="space-y-4">
                  <div className="flex items-center gap-3">
-                    <div className="bg-background rounded-full p-1">
-                      <Image 
-                        src="/logo.png" 
-                        alt="OneURL Logo" 
-                        width={32} 
-                        height={32} 
-                        className="w-8 h-8"
-                      />
-                    </div>
-                    <span className="font-bold text-2xl">OneURL</span>
+                    <Image 
+                      src="/logo.png" 
+                      alt="OneURL Logo" 
+                      width={32} 
+                      height={32} 
+                      className="w-8 h-8"
+                    />
+                    <span className="font-medium text-sm">OneURL</span>
                  </div>
-                 <p className="text-primary-foreground/80 max-w-md text-lg leading-relaxed">
+                 <p className="text-xs text-zinc-600 max-w-md leading-relaxed">
                      The open-source link in bio tool designed for minimalists. 
                      Join thousands of creators sharing their work simply.
                  </p>
              </div>
             
-             <div className="space-y-6">
-                 <h4 className="font-bold text-lg">Community</h4>
-                 <ul className="space-y-4 text-primary-foreground/80">
-                     <li><a href="https://github.com/KartikLabhshetwar/oneurl" className="hover:text-white transition-colors">GitHub</a></li>
-                     <li><a href="https://x.com/code_kartik" className="hover:text-white transition-colors">Twitter</a></li>
-                     <li><a href="#" className="hover:text-white transition-colors">Discord</a></li>
+             <div className="space-y-4">
+                 <h4 className="font-medium text-sm">Community</h4>
+                 <ul className="space-y-2 text-xs text-zinc-600">
+                     <li><a href="https://github.com/KartikLabhshetwar/oneurl" className="hover:text-foreground transition-colors">GitHub</a></li>
+                     <li><a href="https://x.com/code_kartik" className="hover:text-foreground transition-colors">Twitter</a></li>
                  </ul>
              </div>
          </div>
          
-         <div className="border-t border-primary-foreground/20 pt-8 flex flex-col md:flex-row justify-center items-center gap-4 text-sm text-primary-foreground/60">
+         <div className="border-t border-zinc-200 pt-8 text-center text-xs text-zinc-600">
              <div>© {new Date().getFullYear()} OneURL. Open Source BSD 3-Clause License.</div>
          </div>
       </div>

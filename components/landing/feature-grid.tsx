@@ -35,23 +35,25 @@ const features = [
 
 export function LandingFeatures() {
   return (
-    <section className="border-y border-primary/10 bg-muted/5">
-      <div className="container mx-auto px-4 py-24">
-        <div className="mb-16 md:mb-24">
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">Everything you need.</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl">
+    <section className="border-t-2 border-dashed border-zinc-200">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-24">
+        <div className="mb-12">
+            <h2 className="text-2xl md:text-3xl font-medium mb-4">Everything you need.</h2>
+            <p className="text-sm text-zinc-600 max-w-2xl">
               Powerful features to help you share your online presence effectively.
             </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-primary/10 border border-primary/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center">
            {features.map((f, i) => (
-             <div key={i} className="bg-background p-8 md:p-12 space-y-6 hover:bg-muted/30 transition-colors">
-               <div className="w-12 h-12 bg-primary/5 flex items-center justify-center rounded-none">
-                 <f.icon className="w-6 h-6 text-primary" />
+             <div key={i} className="space-y-2 p-4 bg-zinc-50 border border-zinc-200 hover:border-zinc-300 transition-colors w-full max-w-sm">
+               <div className="flex items-center gap-2">
+                 <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                   <f.icon className="w-4 h-4 text-foreground" />
+                 </div>
+                 <h3 className="text-xs font-medium">{f.title}</h3>
                </div>
-               <h3 className="text-2xl font-bold tracking-tight">{f.title}</h3>
-               <p className="text-muted-foreground text-lg leading-relaxed">{f.description}</p>
+               <p className="text-xs text-zinc-600 leading-relaxed pl-8">{f.description}</p>
              </div>
            ))}
         </div>

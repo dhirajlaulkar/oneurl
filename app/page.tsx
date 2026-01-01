@@ -24,9 +24,9 @@ export default async function HomePage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-background selection:bg-primary selection:text-primary-foreground">
+    <div className="flex min-h-screen flex-col bg-zinc-100 selection:bg-primary selection:text-primary-foreground">
       <LandingNav />
-      <main className="flex-1">
+      <main className="flex-1 font-mono text-sm">
         <LandingHero />
         <LandingFeatures />
         <LandingCTA />
