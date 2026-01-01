@@ -120,6 +120,12 @@ model LinkClick {
   country            String?
   device             String?
   browser            String?
+  operatingSystem    String?
+  utmSource          String?
+  utmMedium          String?
+  utmCampaign        String?
+  utmTerm            String?
+  utmContent         String?
   ipAddress          String?
   userAgent          String?
   sessionFingerprint String?
@@ -131,5 +137,8 @@ model LinkClick {
   @@index([clickedAt])
   @@index([sessionFingerprint])
   @@index([idempotencyKey])
+  @@index([utmSource])
+  @@index([utmMedium])
+  @@index([utmCampaign])
   @@map("link_click")
 }

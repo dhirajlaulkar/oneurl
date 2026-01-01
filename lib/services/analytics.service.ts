@@ -14,11 +14,28 @@ export const analyticsService = {
       if (endDate) where.clickedAt.lte = endDate;
     }
 
-    const [totalClicks, allClicks, clicksByCountry, clicksByDevice, clicksByBrowser] = await Promise.all([
+    const [
+      totalClicks,
+      uniqueVisitors,
+      allClicks,
+      clicksByCountry,
+      clicksByDevice,
+      clicksByBrowser,
+      clicksByOS,
+      clicksByReferrer,
+      clicksByUTMSource,
+      clicksByUTMMedium,
+      clicksByUTMCampaign,
+    ] = await Promise.all([
       db.linkClick.count({ where }),
+      db.linkClick.groupBy({
+        by: ["sessionFingerprint"],
+        where: { ...where, sessionFingerprint: { not: null } },
+        _count: true,
+      }),
       db.linkClick.findMany({
         where,
-        select: { clickedAt: true },
+        select: { clickedAt: true, sessionFingerprint: true },
         orderBy: { clickedAt: "asc" },
       }),
       db.linkClick.groupBy({
@@ -38,6 +55,36 @@ export const analyticsService = {
         where: { ...where, browser: { not: null } },
         _count: true,
         orderBy: { _count: { browser: "desc" } },
+      }),
+      db.linkClick.groupBy({
+        by: ["operatingSystem"],
+        where: { ...where, operatingSystem: { not: null } },
+        _count: true,
+        orderBy: { _count: { operatingSystem: "desc" } },
+      }),
+      db.linkClick.groupBy({
+        by: ["referrer"],
+        where: { ...where, referrer: { not: null } },
+        _count: true,
+        orderBy: { _count: { referrer: "desc" } },
+      }),
+      db.linkClick.groupBy({
+        by: ["utmSource"],
+        where: { ...where, utmSource: { not: null } },
+        _count: true,
+        orderBy: { _count: { utmSource: "desc" } },
+      }),
+      db.linkClick.groupBy({
+        by: ["utmMedium"],
+        where: { ...where, utmMedium: { not: null } },
+        _count: true,
+        orderBy: { _count: { utmMedium: "desc" } },
+      }),
+      db.linkClick.groupBy({
+        by: ["utmCampaign"],
+        where: { ...where, utmCampaign: { not: null } },
+        _count: true,
+        orderBy: { _count: { utmCampaign: "desc" } },
       }),
     ]);
 
@@ -66,20 +113,44 @@ export const analyticsService = {
       clicks: item._count,
     }));
 
-    const referrers = await db.linkClick.findMany({
-      where: { ...where, referrer: { not: null } },
-      select: { referrer: true },
-      distinct: ["referrer"],
-    });
+    const clicksByOSFormatted = clicksByOS.map((item) => ({
+      os: item.operatingSystem || "Unknown",
+      clicks: item._count,
+    }));
+
+    const clicksByReferrerFormatted = clicksByReferrer.map((item) => ({
+      referrer: item.referrer || "Unknown",
+      clicks: item._count,
+    }));
+
+    const clicksByUTMSourceFormatted = clicksByUTMSource.map((item) => ({
+      source: item.utmSource || "Unknown",
+      clicks: item._count,
+    }));
+
+    const clicksByUTMMediumFormatted = clicksByUTMMedium.map((item) => ({
+      medium: item.utmMedium || "Unknown",
+      clicks: item._count,
+    }));
+
+    const clicksByUTMCampaignFormatted = clicksByUTMCampaign.map((item) => ({
+      campaign: item.utmCampaign || "Unknown",
+      clicks: item._count,
+    }));
 
     return {
       linkId,
       totalClicks,
+      uniqueVisitors: uniqueVisitors.length,
       clicksOverTime: clicksOverTimeFormatted,
       clicksByCountry: clicksByCountryFormatted,
       clicksByDevice: clicksByDeviceFormatted,
       clicksByBrowser: clicksByBrowserFormatted,
-      referrers: referrers.map((r) => r.referrer).filter(Boolean) as string[],
+      clicksByOS: clicksByOSFormatted,
+      clicksByReferrer: clicksByReferrerFormatted,
+      clicksByUTMSource: clicksByUTMSourceFormatted,
+      clicksByUTMMedium: clicksByUTMMediumFormatted,
+      clicksByUTMCampaign: clicksByUTMCampaignFormatted,
     };
   },
 
@@ -102,8 +173,22 @@ export const analyticsService = {
       if (endDate) where.clickedAt.lte = endDate;
     }
 
-    const [totalClicks, clicksByLink, allClicks] = await Promise.all([
+    const [
+      totalClicks,
+      uniqueVisitors,
+      clicksByLink,
+      allClicks,
+      clicksByReferrer,
+      clicksByUTMSource,
+      clicksByUTMMedium,
+      clicksByUTMCampaign,
+    ] = await Promise.all([
       db.linkClick.count({ where }),
+      db.linkClick.groupBy({
+        by: ["sessionFingerprint"],
+        where: { ...where, sessionFingerprint: { not: null } },
+        _count: true,
+      }),
       db.linkClick.groupBy({
         by: ["linkId"],
         where,
@@ -112,8 +197,32 @@ export const analyticsService = {
       }),
       db.linkClick.findMany({
         where,
-        select: { clickedAt: true },
+        select: { clickedAt: true, sessionFingerprint: true },
         orderBy: { clickedAt: "asc" },
+      }),
+      db.linkClick.groupBy({
+        by: ["referrer"],
+        where: { ...where, referrer: { not: null } },
+        _count: true,
+        orderBy: { _count: { referrer: "desc" } },
+      }),
+      db.linkClick.groupBy({
+        by: ["utmSource"],
+        where: { ...where, utmSource: { not: null } },
+        _count: true,
+        orderBy: { _count: { utmSource: "desc" } },
+      }),
+      db.linkClick.groupBy({
+        by: ["utmMedium"],
+        where: { ...where, utmMedium: { not: null } },
+        _count: true,
+        orderBy: { _count: { utmMedium: "desc" } },
+      }),
+      db.linkClick.groupBy({
+        by: ["utmCampaign"],
+        where: { ...where, utmCampaign: { not: null } },
+        _count: true,
+        orderBy: { _count: { utmCampaign: "desc" } },
       }),
     ]);
 
@@ -134,11 +243,36 @@ export const analyticsService = {
       .map(([date, clicks]) => ({ date, clicks }))
       .sort((a, b) => a.date.localeCompare(b.date));
 
+    const clicksByReferrerFormatted = clicksByReferrer.map((item) => ({
+      referrer: item.referrer || "Unknown",
+      clicks: item._count,
+    }));
+
+    const clicksByUTMSourceFormatted = clicksByUTMSource.map((item) => ({
+      source: item.utmSource || "Unknown",
+      clicks: item._count,
+    }));
+
+    const clicksByUTMMediumFormatted = clicksByUTMMedium.map((item) => ({
+      medium: item.utmMedium || "Unknown",
+      clicks: item._count,
+    }));
+
+    const clicksByUTMCampaignFormatted = clicksByUTMCampaign.map((item) => ({
+      campaign: item.utmCampaign || "Unknown",
+      clicks: item._count,
+    }));
+
     return {
       profileId,
       totalClicks,
+      uniqueVisitors: uniqueVisitors.length,
       topLinks,
       clicksOverTime: clicksOverTimeFormatted,
+      clicksByReferrer: clicksByReferrerFormatted,
+      clicksByUTMSource: clicksByUTMSourceFormatted,
+      clicksByUTMMedium: clicksByUTMMediumFormatted,
+      clicksByUTMCampaign: clicksByUTMCampaignFormatted,
     };
   },
 

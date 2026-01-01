@@ -2,6 +2,60 @@
 
 import { cloneElement, isValidElement, useCallback } from "react";
 
+const STORAGE_KEY_PREFIX = "oneurl_click_";
+const DUPLICATE_WINDOW_MS = 24 * 60 * 60 * 1000;
+
+function getOrCreateClientId(): string {
+  if (typeof window === "undefined") return "";
+  
+  const key = "oneurl_client_id";
+  let clientId = localStorage.getItem(key);
+  
+  if (!clientId) {
+    clientId = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
+    localStorage.setItem(key, clientId);
+  }
+  
+  return clientId;
+}
+
+function hasRecentClick(linkId: string): boolean {
+  if (typeof window === "undefined") return false;
+  
+  const key = `${STORAGE_KEY_PREFIX}${linkId}`;
+  const lastClick = localStorage.getItem(key);
+  
+  if (!lastClick) return false;
+  
+  const lastClickTime = parseInt(lastClick, 10);
+  const now = Date.now();
+  
+  if (now - lastClickTime < DUPLICATE_WINDOW_MS) {
+    return true;
+  }
+  
+  return false;
+}
+
+function recordClick(linkId: string): void {
+  if (typeof window === "undefined") return;
+  
+  const key = `${STORAGE_KEY_PREFIX}${linkId}`;
+  localStorage.setItem(key, Date.now().toString());
+  
+  const allKeys = Object.keys(localStorage).filter((k) =>
+    k.startsWith(STORAGE_KEY_PREFIX)
+  );
+  
+  const now = Date.now();
+  allKeys.forEach((k) => {
+    const timestamp = parseInt(localStorage.getItem(k) || "0", 10);
+    if (now - timestamp > DUPLICATE_WINDOW_MS) {
+      localStorage.removeItem(k);
+    }
+  });
+}
+
 function shouldTrack(): boolean {
   if (typeof navigator === "undefined") return true;
   
@@ -25,17 +79,27 @@ async function trackClickWithRetry(
     return;
   }
 
+  if (hasRecentClick(linkId)) {
+    return;
+  }
+
+  const clientId = getOrCreateClientId();
+
   for (let attempt = 0; attempt < maxRetries; attempt++) {
     try {
       const response = await fetch("/api/track", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ linkId }),
+        body: JSON.stringify({ linkId, clientId }),
         signal: AbortSignal.timeout(5000),
       });
 
       if (response.ok) {
         const data = await response.json();
+        if (data.success && data.tracked) {
+          recordClick(linkId);
+          return;
+        }
         if (data.success || !data.retry) {
           return;
         }

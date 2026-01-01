@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 
 export async function POST(req: Request) {
   try {
-    const { linkId } = await req.json();
+    const { linkId, clientId } = await req.json();
 
     if (!linkId) {
       return NextResponse.json(
@@ -47,6 +47,9 @@ export async function POST(req: Request) {
                     headersList.get("x-vercel-ip-country") || 
                     null;
 
+    const url = new URL(req.url);
+    const fullUrl = `${url.origin}${url.pathname}${url.search}`;
+
     const allHeaders: Record<string, string | null> = {
       "accept-language": headersList.get("accept-language"),
       "accept-encoding": headersList.get("accept-encoding"),
@@ -59,6 +62,8 @@ export async function POST(req: Request) {
       referrer,
       country,
       headers: allHeaders,
+      clientId: clientId || undefined,
+      url: fullUrl,
     });
 
     if (!result.success && result.reason === "max_retries_exceeded") {

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Link2, Plus, Edit, Trash2, Power, PowerOff, BarChart3 } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { Link2, Plus, Edit, Trash2, Power, PowerOff, BarChart3, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -40,11 +41,25 @@ export default function LinksPage() {
   const [linkToDelete, setLinkToDelete] = useState<string | null>(null);
   const [linkToggling, setLinkToggling] = useState<string | null>(null);
 
+  const queryClient = useQueryClient();
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const { data: links = [], isLoading } = useLinks();
-  const { data: clickCounts = {}, isLoading: isLoadingCounts } = useLinkClickCounts();
+  const { data: clickCounts = {}, isLoading: isLoadingCounts, refetch: refetchCounts } = useLinkClickCounts();
   const createLink = useCreateLink();
   const updateLink = useUpdateLink();
   const deleteLink = useDeleteLink();
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    try {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["link-click-counts"] }),
+        queryClient.refetchQueries({ queryKey: ["link-click-counts"] }),
+      ]);
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
 
   const handleAdd = async (data: { title: string; url: string }) => {
     await createLink.mutateAsync(data);
@@ -143,10 +158,21 @@ export default function LinksPage() {
               Add, edit, and organize your profile links
             </p>
           </div>
-          <Button onClick={() => setAddDialogOpen(true)}>
-            <Plus />
-            <span>Create New Link</span>
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleRefresh}
+              disabled={isLoadingCounts || isRefreshing}
+            >
+              <RefreshCw className={`h-4 w-4 ${isLoadingCounts || isRefreshing ? "animate-spin" : ""}`} />
+              Refresh
+            </Button>
+            <Button onClick={() => setAddDialogOpen(true)}>
+              <Plus />
+              <span>Create New Link</span>
+            </Button>
+          </div>
         </div>
       </div>
 

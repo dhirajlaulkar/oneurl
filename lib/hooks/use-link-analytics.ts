@@ -13,7 +13,11 @@ export function useLinkClickCounts() {
       const data = await res.json();
       return (data.counts || {}) as Record<string, number>;
     },
-    refetchInterval: 30000,
+    refetchInterval: 5000,
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
+    staleTime: 0,
+    gcTime: 30000,
   });
 }
 
@@ -29,6 +33,29 @@ export function useLinkAnalytics(linkId: string | null) {
       return res.json();
     },
     enabled: !!linkId,
+    refetchInterval: 10000,
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
+    staleTime: 0,
+    gcTime: 60000,
+  });
+}
+
+export function useProfileAnalytics() {
+  return useQuery({
+    queryKey: ["analytics"],
+    queryFn: async () => {
+      const res = await fetch("/api/analytics");
+      if (!res.ok) {
+        throw new Error("Failed to fetch analytics");
+      }
+      return res.json();
+    },
+    refetchInterval: 10000,
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
+    staleTime: 0,
+    gcTime: 60000,
   });
 }
 
