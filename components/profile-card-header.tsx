@@ -30,15 +30,15 @@ export function ProfileCardHeader({
         {/* Logo/Home Button */}
         <Link
           href="/"
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-background border shadow-sm hover:bg-accent transition-colors"
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-background border shadow-sm hover:bg-accent transition-colors"
           aria-label="Go to OneURL homepage"
         >
           <Image
             src="/logo.png"
             alt="OneURL"
-            width={24}
-            height={24}
-            className="h-6 w-6"
+            width={128}
+            height={128}
+            className="h-14 w-14"
             priority
           />
         </Link>
@@ -46,10 +46,10 @@ export function ProfileCardHeader({
         {/* Share Button */}
         <button
           onClick={() => setShareDialogOpen(true)}
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-background border shadow-sm hover:bg-accent transition-colors"
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-background border shadow-sm hover:bg-accent transition-colors"
           aria-label="Share profile"
         >
-          <Share2 className="h-5 w-5 text-foreground" />
+          <Share2 className="h-6 w-6 text-foreground" />
         </button>
       </div>
 

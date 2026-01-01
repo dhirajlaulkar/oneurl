@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { Link2 } from "lucide-react";
+import { Link2, BadgeCheck } from "lucide-react";
 import { profileService } from "@/lib/services/profile.service";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -15,6 +15,7 @@ import { getAvatarUrl } from "@/lib/utils";
 import { ProfileCardHeader } from "@/components/profile-card-header";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { PaperTextureBackground } from "@/components/halftonedots-texture-background";
 
 type Props = {
   params: Promise<{ username: string }>;
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const avatarUrl = getAvatarUrl(user);
-  const profileUrl = `https://oneurl-alpha.vercel.app/${username}`;
+  const profileUrl = `https://oneurl.live/${username}`;
   const images = avatarUrl 
     ? [{ url: avatarUrl, width: 400, height: 400, alt: `${user.name}'s profile picture` }]
     : [{ url: "/og.png", width: 1200, height: 630, alt: "OneURL" }];
@@ -39,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${user.name} | OneURL`,
     description: user.bio || `Visit ${user.name}'s profile on OneURL`,
-    metadataBase: new URL("https://oneurl-alpha.vercel.app"),
+    metadataBase: new URL("https://oneurl.live"),
     openGraph: {
       title: `${user.name} | OneURL`,
       description: user.bio || `Visit ${user.name}'s profile on OneURL`,
@@ -74,19 +75,17 @@ export default async function PublicProfilePage({ params }: Props) {
   const avatarUrl = getAvatarUrl(user);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-background to-muted/20 p-4">
-      <div className="w-full max-w-sm">
-        {/* Simple Card */}
-        <div className="rounded-2xl border bg-card p-8 shadow-lg">
-          {/* Header with Logo and Share buttons */}
+    <div className="relative flex min-h-screen items-center justify-center p-4">
+      <PaperTextureBackground />
+      <div className="relative z-10 w-full max-w-md">
+        <div className="p-8">
           <ProfileCardHeader
             name={user.name}
             username={user.username}
             avatarUrl={avatarUrl}
           />
 
-          {/* Profile Content */}
-          <div className="flex flex-col items-center space-y-4">
+          <div className="flex flex-col items-center space-y-4 mb-6">
             {avatarUrl && (
               <Image
                 src={avatarUrl}
@@ -97,29 +96,31 @@ export default async function PublicProfilePage({ params }: Props) {
               />
             )}
             <div className="text-center">
-              <h1 className="text-2xl font-bold">{user.name}</h1>
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <h1 className="text-2xl font-bold">{user.name}</h1>
+                <BadgeCheck className="h-6 w-6 text-blue-500 shrink-0" />
+              </div>
               {user.username && (
                 <p className="text-sm text-muted-foreground">@{user.username}</p>
-              )}
-              {user.bio && (
-                <p className="mt-3 text-sm leading-relaxed whitespace-pre-line">{user.bio}</p>
               )}
             </div>
           </div>
 
-          {/* Links */}
+          {user.bio && (
+            <div className="mb-8 text-center">
+              <p className="text-sm leading-relaxed whitespace-pre-line">{user.bio}</p>
+            </div>
+          )}
+
           {links.length > 0 && (
             <div className="mt-8 space-y-3">
               {links.map((link) => (
-                <LinkClickTracker
-                  key={link.id}
-                  linkId={link.id}
-                >
+                <LinkClickTracker key={link.id} linkId={link.id}>
                   <a
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block rounded-lg border bg-background p-4 text-center font-medium transition-all hover:bg-accent hover:shadow-md active:scale-[0.98]"
+                    className="block w-full rounded-lg border bg-background p-4 text-center font-medium transition-all hover:bg-accent hover:shadow-md active:scale-[0.98]"
                   >
                     {link.title}
                   </a>
@@ -144,7 +145,6 @@ export default async function PublicProfilePage({ params }: Props) {
             </div>
           )}
 
-          {/* CTA Button at bottom */}
           <div className="mt-8 flex justify-center">
             <Link href="/signup">
               <Button
