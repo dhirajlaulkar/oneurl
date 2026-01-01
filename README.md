@@ -23,7 +23,6 @@
 - Authentication: Better Auth
 - Styling: Tailwind CSS
 - UI Components: Base UI React
-- File Upload: UploadThing
 
 ## Prerequisites
 
@@ -32,7 +31,6 @@ Before you begin, ensure you have:
 - Node.js 20+ or Bun installed
 - PostgreSQL database (local or cloud like Neon)
 - Google OAuth credentials
-- (Optional) UploadThing account for file uploads
 
 ## Getting Started
 
@@ -66,10 +64,6 @@ BETTER_AUTH_URL="http://localhost:3000"
 # Google OAuth
 GOOGLE_CLIENT_ID="your-google-client-id"
 GOOGLE_CLIENT_SECRET="your-google-client-secret"
-
-# UploadThing (optional)
-UPLOADTHING_SECRET="your-uploadthing-secret"
-UPLOADTHING_APP_ID="your-uploadthing-app-id"
 ```
 
 ### 4. Set Up Database
@@ -97,14 +91,18 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ```
 oneurl/
 ├── app/                    # Next.js app directory
-│   ├── (auth)/            # Authentication routes
+│   ├── (auth)/            # Authentication routes (login, signup)
 │   ├── (dashboard)/       # Dashboard routes (protected)
 │   ├── (onboarding)/      # Onboarding flow
 │   ├── [username]/        # Public profile pages
 │   └── api/               # API routes
 ├── components/            # React components
+│   ├── landing/           # Landing page components
 │   └── ui/                # UI component library
+├── hooks/                 # Custom React hooks
 ├── lib/                   # Utility functions and services
+│   ├── generated/         # Generated Prisma client
+│   ├── hooks/             # Custom hooks
 │   ├── services/          # Business logic services
 │   └── validations/       # Zod schemas
 ├── prisma/                # Prisma schema and migrations
@@ -128,13 +126,6 @@ oneurl/
 4. Create OAuth 2.0 credentials
 5. Add authorized redirect URI: `http://localhost:3000/api/auth/callback/google`
 6. Copy Client ID and Client Secret to `.env`
-
-### UploadThing Setup (Optional)
-
-1. Sign up at [UploadThing](https://uploadthing.com/)
-2. Create a new app
-3. Copy your API keys to `.env`
-4. Configure the upload endpoint in `lib/uploadthing.ts`
 
 ## Usage
 
@@ -178,12 +169,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
-
-## Acknowledgments
-
-- Built with [Next.js](https://nextjs.org/)
-- UI components from [Base UI](https://base-ui.com/)
-- Authentication with [Better Auth](https://www.better-auth.com/)
 
 ---
 
