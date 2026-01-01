@@ -5,14 +5,11 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { LinkForm, type Link } from "@/components/link-form";
-import { Input } from "@/components/ui/input";
-import { Field, FieldLabel, FieldDescription, FieldControl } from "@/components/ui/field";
 import { toastSuccess, toastError } from "@/lib/toast";
 
 export default function LinksPage() {
   const router = useRouter();
   const [links, setLinks] = useState<Link[]>([]);
-  const [calLink, setCalLink] = useState("");
   const [globalError, setGlobalError] = useState("");
 
   const handleAddLink = (link: Link) => {
@@ -54,14 +51,6 @@ export default function LinksPage() {
         return;
       }
 
-      if (calLink.trim()) {
-        await fetch("/api/profile", {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ calLink: calLink.trim() || null }),
-        });
-      }
-
       toastSuccess("Links saved", "Your links have been saved successfully");
       router.push("/onboarding/preview");
     } catch {
@@ -72,11 +61,11 @@ export default function LinksPage() {
   };
 
   return (
-    <div className="flex h-full w-full items-center justify-center px-4 py-16">
-      <div className="w-full max-w-md space-y-6">
+    <div className="w-full max-w-md mx-auto px-4 py-12">
+      <div className="w-full space-y-6">
         <div className="space-y-2 text-center">
           <h2 className="text-2xl font-semibold">Add your links</h2>
-          <p className="text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             Add the links you want to share on your profile
           </p>
         </div>
@@ -113,29 +102,7 @@ export default function LinksPage() {
           </div>
         )}
 
-        <Card>
-          <CardContent className="pt-6">
-            <Field>
-              <FieldLabel htmlFor="calLink">Cal.com Link (Optional)</FieldLabel>
-              <FieldDescription>
-                Add your Cal.com username or full URL to enable booking on your profile
-              </FieldDescription>
-              <FieldControl
-                render={(props) => (
-                  <Input
-                    {...props}
-                    id="calLink"
-                    value={calLink}
-                    onChange={(e) => setCalLink(e.target.value)}
-                    placeholder="username or https://cal.com/username"
-                  />
-                )}
-              />
-            </Field>
-          </CardContent>
-        </Card>
-
-        <div className="flex justify-center">
+        <div className="flex justify-center pt-4">
           <Button
             onClick={handleContinue}
             size="sm"

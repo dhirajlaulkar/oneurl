@@ -9,7 +9,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Form } from "@/components/ui/form";
 import { Field, FieldLabel, FieldControl, FieldDescription } from "@/components/ui/field";
-import { Fieldset } from "@/components/ui/fieldset";
 import { InputGroup, InputGroupAddon, InputGroupText, InputGroupInput } from "@/components/ui/input-group";
 import {
   AlertDialog,
@@ -94,15 +93,8 @@ export default function SettingsClient({
   };
 
   return (
-    <div className="p-8">
-      <div className="mb-8 max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold">Settings</h1>
-        <p className="text-muted-foreground mt-2">
-          Manage your profile and account settings
-        </p>
-      </div>
-
-      <div className="space-y-6 max-w-2xl mx-auto">
+    <div className="min-h-screen flex items-center justify-center p-8">
+      <div className="w-full max-w-2xl space-y-6">
         <Card>
           <CardHeader>
             <CardTitle>Profile Picture</CardTitle>
@@ -164,7 +156,7 @@ export default function SettingsClient({
           </CardHeader>
           <CardContent>
             <Form onSubmit={handleSave}>
-              <Fieldset>
+              <div className="space-y-6">
                 <Field>
                   <FieldLabel htmlFor="name">Name</FieldLabel>
                   <FieldDescription>
@@ -246,7 +238,7 @@ export default function SettingsClient({
                 <Button type="submit" disabled={updateProfile.isPending}>
                   {updateProfile.isPending ? "Saving..." : "Save Changes"}
                 </Button>
-              </Fieldset>
+              </div>
             </Form>
           </CardContent>
         </Card>

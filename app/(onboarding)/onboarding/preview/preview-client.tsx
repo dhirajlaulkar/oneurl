@@ -31,11 +31,11 @@ export default function PreviewClient() {
   };
 
   return (
-    <div className="flex justify-center gap-4">
-      <Button variant="outline" onClick={() => router.back()}>
+    <div className="flex justify-center gap-4 pt-4">
+      <Button variant="outline" onClick={() => router.back()} size="lg">
         Back
       </Button>
-      <Button onClick={handlePublish} disabled={isPublishing}>
+      <Button onClick={handlePublish} disabled={isPublishing} size="lg">
         {isPublishing ? "Publishing..." : "Publish Profile"}
       </Button>
     </div>

@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireAuth } from "@/lib/auth-guard";
 import { profileService } from "@/lib/services/profile.service";
-import { usernameSchema } from "@/lib/validations/schemas";
 
 export async function GET(req: Request) {
   try {
@@ -9,9 +8,27 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get("userId") || session.user.id;
 
-    const profile = await profileService.getByUserId(userId);
+    const user = await profileService.getByUserId(userId);
 
-    return NextResponse.json(profile);
+    if (!user) {
+      return NextResponse.json(
+        { error: "Profile not found" },
+        { status: 404 }
+      );
+    }
+
+    const response = {
+      name: user.name,
+      bio: user.bio,
+      username: user.username,
+      avatarUrl: user.avatarUrl || user.image || null,
+      profile: user.profile ? {
+        title: user.profile.title,
+        calLink: user.profile.calLink,
+      } : null,
+    };
+
+    return NextResponse.json(response);
   } catch (error) {
     if (error instanceof Error && error.message.includes("redirect")) {
       throw error;
@@ -45,7 +62,10 @@ export async function PATCH(req: Request) {
     }
 
     if (calLink !== undefined) {
-      await profileService.updateProfile(session.user.id, { calLink });
+      await profileService.updateProfile(session.user.id, { 
+        calLink,
+        theme: "default"
+      });
     }
 
     return NextResponse.json({ success: true });
@@ -60,7 +80,7 @@ export async function PATCH(req: Request) {
   }
 }
 
-export async function DELETE(req: Request) {
+export async function DELETE() {
   try {
     const session = await requireAuth();
     const { db } = await import("@/lib/db");

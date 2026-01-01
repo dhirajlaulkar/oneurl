@@ -21,8 +21,8 @@ export default function OnboardingLayout({
   const currentStep = steps.findIndex((step) => step.path === pathname);
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <div className="border-b">
+    <div className="flex min-h-screen flex-col bg-zinc-100">
+      <div className="border-b bg-white">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <Link href="/" className="flex items-center gap-2">
             <Image
@@ -30,17 +30,17 @@ export default function OnboardingLayout({
               alt="OneURL"
               width={128}
               height={128}
-              className="h-20 w-20"
+              className="h-12 w-12"
             />
             <h1 className="text-lg font-semibold">OneURL</h1>
           </Link>
-          <Button variant="ghost" size="sm" render={<Link href="/">Skip for now</Link>}>
-            <Link href="/">Skip for now</Link>
+          <Button variant="ghost" size="sm" render={<Link href="/dashboard">Skip for now</Link>}>
+            <Link href="/dashboard">Skip for now</Link>
           </Button>
         </div>
       </div>
 
-      <div className="border-b bg-muted/30">
+      <div className="border-b bg-white/50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             {steps.map((step, index) => {
@@ -104,7 +104,7 @@ export default function OnboardingLayout({
         </div>
       </div>
 
-      <div className="flex flex-1">{children}</div>
+      <div className="flex flex-1 items-center justify-center">{children}</div>
     </div>
   );
 }

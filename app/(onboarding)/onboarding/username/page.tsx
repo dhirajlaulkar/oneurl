@@ -124,11 +124,11 @@ export default function UsernamePage() {
   };
 
   return (
-    <div className="container mx-auto flex max-w-md flex-col items-center justify-center px-4 py-16">
+    <div className="w-full max-w-md mx-auto px-4 py-12">
       <div className="w-full space-y-6">
         <div className="space-y-2 text-center">
           <h2 className="text-2xl font-semibold">Choose your username</h2>
-          <p className="text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             This will be your unique profile URL: oneurl.live/{username || "username"}
           </p>
         </div>
