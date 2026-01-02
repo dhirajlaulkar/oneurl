@@ -36,6 +36,6 @@ export function sanitizeTitle(input: string): string {
   return sanitizeString(input)
     .replace(/<[^>]*>/g, "")
     .replace(/[<>"']/g, "")
-    .slice(0, 50);
+    .slice(0, 300);
 }
 

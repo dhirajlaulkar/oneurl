@@ -12,7 +12,7 @@ export const linkSchema = z.object({
   title: z
     .string()
     .min(1, "Title is required")
-    .max(50, "Title must be at most 50 characters")
+    .max(300, "Title must be at most 300 characters")
     .transform((val) => sanitizeTitle(val)),
   url: z
     .string()
