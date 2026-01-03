@@ -93,8 +93,8 @@ export default function SettingsClient({
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <div className="w-full max-w-2xl space-y-6">
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8">
+      <div className="w-full max-w-2xl space-y-4 sm:space-y-6">
         <Card className="rounded-none">
           <CardHeader>
             <CardTitle>Profile Picture</CardTitle>
@@ -109,7 +109,7 @@ export default function SettingsClient({
                 <FieldControl
                   render={() => (
                     <div className="flex flex-col items-center gap-4">
-                      <Avatar className="h-32 w-32 border-2 transition-all duration-200">
+                      <Avatar className="h-24 w-24 sm:h-32 sm:w-32 border-2 transition-all duration-200">
                         {avatarUrl && <AvatarImage src={avatarUrl} alt="Profile picture" />}
                         <AvatarFallback>
                           <svg

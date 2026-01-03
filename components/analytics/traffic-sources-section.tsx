@@ -94,7 +94,7 @@ export function TrafficSourcesSection({
       </CardHeader>
       <CardContent>
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 text-xs sm:text-sm">
             <TabsTrigger value="referrers">
               Referrers ({referrers.length})
             </TabsTrigger>

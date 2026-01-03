@@ -47,8 +47,8 @@ export function DeviceBreakdown({ data }: DeviceBreakdownProps) {
         <CardDescription>Device breakdown</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="space-y-0">
-          <div className="grid grid-cols-[1fr_80px_80px] gap-4 px-2 py-2 text-xs font-medium text-muted-foreground border-b mb-2">
+        <div className="space-y-0 overflow-x-auto">
+          <div className="grid grid-cols-[1fr_60px_60px] sm:grid-cols-[1fr_80px_80px] gap-2 sm:gap-4 px-2 py-2 text-xs font-medium text-muted-foreground border-b mb-2 min-w-[280px]">
             <div>DEVICE TYPE</div>
             <div className="text-right">VISITORS</div>
             <div className="text-right">SHARE</div>
@@ -61,17 +61,17 @@ export function DeviceBreakdown({ data }: DeviceBreakdownProps) {
             return (
               <div
                 key={item.name}
-                className={`grid grid-cols-[1fr_80px_80px] gap-4 items-center px-2 py-3 rounded-lg ${colors.bg} transition-colors`}
+                className={`grid grid-cols-[1fr_60px_60px] sm:grid-cols-[1fr_80px_80px] gap-2 sm:gap-4 items-center px-2 py-2 sm:py-3 rounded-lg ${colors.bg} transition-colors min-w-[280px]`}
               >
                 <div className="flex items-center gap-2 min-w-0">
-                  <DeviceIcon className="h-5 w-5 shrink-0" />
-                  <span className="text-sm font-medium truncate">{item.name}</span>
+                  <DeviceIcon className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
+                  <span className="text-xs sm:text-sm font-medium truncate">{item.name}</span>
                 </div>
-                <div className="text-sm font-medium text-right">
+                <div className="text-xs sm:text-sm font-medium text-right">
                   {item.value.toLocaleString()}
                 </div>
                 <div className="text-right">
-                  <span className={`inline-flex items-center justify-center px-2 py-1 rounded-full text-xs font-medium text-white ${colors.badge}`}>
+                  <span className={`inline-flex items-center justify-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium text-white ${colors.badge}`}>
                     {share}%
                   </span>
                 </div>

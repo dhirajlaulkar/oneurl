@@ -21,15 +21,15 @@ export default async function AnalyticsPage() {
 
   if (!profile) {
     return (
-      <div className="p-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold">Analytics</h1>
-          <p className="text-muted-foreground mt-2">
+      <div className="p-4 sm:p-6 lg:p-8">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold">Analytics</h1>
+          <p className="text-sm sm:text-base text-muted-foreground mt-2">
             Track your link performance
           </p>
         </div>
-        <Card>
-          <CardContent className="p-12">
+        <Card className="rounded-none">
+          <CardContent className="p-6 sm:p-12">
             <Empty>
               <EmptyHeader>
                 <EmptyMedia variant="icon">
@@ -50,10 +50,10 @@ export default async function AnalyticsPage() {
   const stats = await analyticsService.getProfileStats(profile.id);
 
   return (
-    <div className="p-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">Analytics</h1>
-        <p className="text-muted-foreground mt-2">
+    <div className="p-4 sm:p-6 lg:p-8">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold">Analytics</h1>
+        <p className="text-sm sm:text-base text-muted-foreground mt-2">
           Track your link performance and understand your audience
         </p>
       </div>

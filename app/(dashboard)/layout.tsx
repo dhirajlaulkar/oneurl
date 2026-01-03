@@ -6,6 +6,7 @@ import {
   SidebarInset,
 } from "@/components/ui/sidebar";
 import { DashboardSidebar } from "./dashboard-sidebar";
+import { DashboardMobileNav } from "@/components/dashboard-mobile-nav";
 
 export default async function DashboardLayout({
   children,
@@ -33,7 +34,15 @@ export default async function DashboardLayout({
         }}
       />
       <SidebarInset>
-        {children}
+        <div className="pb-16 md:pb-0">
+          {children}
+        </div>
+        <DashboardMobileNav
+          user={{
+            name: user.name,
+            username: user.username,
+          }}
+        />
       </SidebarInset>
     </SidebarProvider>
   );

@@ -165,19 +165,19 @@ export function VisitorLocations({ data }: VisitorLocationsProps) {
             return (
               <div
                 key={item.name}
-                className="grid grid-cols-[auto_1fr_80px_60px] gap-4 items-center px-2 py-3 rounded-lg transition-colors hover:bg-muted/50"
+                className="grid grid-cols-[auto_1fr_60px_50px] sm:grid-cols-[auto_1fr_80px_60px] gap-2 sm:gap-4 items-center px-2 py-2 sm:py-3 rounded-lg transition-colors hover:bg-muted/50"
               >
-                <div className="text-2xl shrink-0">
+                <div className="text-xl sm:text-2xl shrink-0">
                   {flag}
                 </div>
                 <div className="min-w-0">
-                  <div className="text-sm font-medium truncate">{countryName}</div>
-                  <div className="text-xs text-muted-foreground">{countryCode}</div>
+                  <div className="text-xs sm:text-sm font-medium truncate">{countryName}</div>
+                  <div className="text-[10px] sm:text-xs text-muted-foreground">{countryCode}</div>
                 </div>
-                <div className="text-sm font-medium text-right">
+                <div className="text-xs sm:text-sm font-medium text-right">
                   {item.value.toLocaleString()}
                 </div>
-                <div className="text-sm font-medium text-right">
+                <div className="text-xs sm:text-sm font-medium text-right">
                   {share}%
                 </div>
               </div>

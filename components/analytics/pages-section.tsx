@@ -40,7 +40,7 @@ export function PagesSection({ link, timeAnalysis = [] }: PagesSectionProps) {
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="top-pages">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 text-xs sm:text-sm">
             <TabsTrigger value="top-pages">Top Pages (1)</TabsTrigger>
             <TabsTrigger value="entry-pages">Entry Pages (1)</TabsTrigger>
             <TabsTrigger value="exit-pages">Exit Pages (1)</TabsTrigger>

@@ -237,11 +237,11 @@ export function AnalyticsClient({
 
   return (
     <TooltipProvider>
-      <div className="space-y-6">
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex-1 max-w-sm">
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+          <div className="flex-1 w-full sm:max-w-sm">
             <Select value={selectedLinkId || ""} onValueChange={(value) => setSelectedLinkId(value || null)}>
-              <SelectTrigger>
+              <SelectTrigger className="w-full">
                 <SelectValue>
                   {selectedLinkId ? selectedLink?.title : "Select a link to view analytics"}
                 </SelectValue>
@@ -264,9 +264,11 @@ export function AnalyticsClient({
                   size="sm"
                   onClick={handleRefresh}
                   disabled={isLoadingStats || isRefreshing}
+                  className="w-full sm:w-auto text-xs sm:text-sm"
                 >
                   <RefreshCw className={`h-4 w-4 ${isLoadingStats || isRefreshing ? "animate-spin" : ""}`} />
-                  Refresh
+                  <span className="hidden sm:inline">Refresh</span>
+                  <span className="sm:hidden">Refresh</span>
                 </Button> as React.ReactElement
               }
             />
@@ -275,7 +277,7 @@ export function AnalyticsClient({
         </div>
 
         {!selectedLinkId ? (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-3 sm:gap-4 grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
             <MetricCard
               title="Total Clicks"
               value={formatNumber(totalClicks)}
@@ -302,7 +304,7 @@ export function AnalyticsClient({
             />
                 </div>
         ) : (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-3 sm:gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
             <MetricCard
               title="Pageviews"
               value={formatNumber(totalClicks)}
@@ -348,7 +350,7 @@ export function AnalyticsClient({
           showMultipleLines={!!selectedLinkId}
         />
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
         <TrafficSourcesSection
           referrers={referrerData.map((item) => ({ referrer: item.referrer, clicks: item.clicks }))}
           utmSources={utmSourceData.map((item) => ({ source: item.source, clicks: item.clicks }))}
@@ -427,11 +429,11 @@ export function AnalyticsClient({
 
       {selectedLinkId && (
         <>
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
             <DeviceBreakdown data={deviceData} />
             <BrowserBreakdown data={browserData} />
           </div>
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
             <OSBreakdown data={osData} />
             <VisitorLocations data={countryData} />
           </div>

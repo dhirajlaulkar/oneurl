@@ -50,12 +50,12 @@ export function OSBreakdown({ data }: OSBreakdownProps) {
         <CardDescription>OS breakdown</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="space-y-0">
-          <div className="grid grid-cols-[1fr_80px_80px_80px] gap-4 px-2 py-2 text-xs font-medium text-muted-foreground border-b mb-2">
+        <div className="space-y-0 overflow-x-auto">
+          <div className="grid grid-cols-[1fr_50px_50px_50px] sm:grid-cols-[1fr_70px_70px_70px] md:grid-cols-[1fr_80px_80px_80px] gap-2 sm:gap-3 md:gap-4 px-2 py-2 text-xs font-medium text-muted-foreground border-b mb-2 min-w-[320px]">
             <div>OPERATING SYSTEM</div>
-            <div className="text-right">VISITORS</div>
-            <div className="text-right">PAGEVIEWS</div>
-            <div className="text-right">SHARE</div>
+            <div className="text-right text-[10px] sm:text-xs">VISITORS</div>
+            <div className="text-right text-[10px] sm:text-xs">PAGEVIEWS</div>
+            <div className="text-right text-[10px] sm:text-xs">SHARE</div>
           </div>
           {sortedData.map((item, index) => {
             const OSIcon = getOSIcon(item.name);
@@ -66,22 +66,22 @@ export function OSBreakdown({ data }: OSBreakdownProps) {
             return (
               <div
                 key={item.name}
-                className={`grid grid-cols-[1fr_80px_80px_80px] gap-4 items-center px-2 py-3 rounded-lg transition-colors ${
+                className={`grid grid-cols-[1fr_50px_50px_50px] sm:grid-cols-[1fr_70px_70px_70px] md:grid-cols-[1fr_80px_80px_80px] gap-2 sm:gap-3 md:gap-4 items-center px-2 py-2 sm:py-3 rounded-lg transition-colors min-w-[320px] ${
                   isHighlighted ? colors.bg : ""
                 }`}
               >
-                <div className="flex items-center gap-2 min-w-0">
-                  <OSIcon className="h-5 w-5 shrink-0" />
-                  <span className="text-sm font-medium truncate">{item.name}</span>
+                <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                  <OSIcon className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
+                  <span className="text-xs sm:text-sm font-medium truncate">{item.name}</span>
                 </div>
-                <div className="text-sm font-medium text-right">
+                <div className="text-xs sm:text-sm font-medium text-right">
                   {item.value.toLocaleString()}
                 </div>
-                <div className="text-sm font-medium text-right">
+                <div className="text-xs sm:text-sm font-medium text-right">
                   {formatNumber(item.value)}
                 </div>
                 <div className="text-right">
-                  <span className={`inline-flex items-center justify-center px-2 py-1 rounded-full text-xs font-medium text-white ${colors.badge}`}>
+                  <span className={`inline-flex items-center justify-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium text-white ${colors.badge}`}>
                     {share}%
                   </span>
                 </div>

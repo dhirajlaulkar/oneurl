@@ -230,14 +230,14 @@ export function DashboardClient({ initialProfile }: DashboardClientProps) {
 
   if (isLoading) {
     return (
-      <div className="p-8">
-        <div className="mb-8 space-y-2">
-          <Skeleton className="h-9 w-48" />
-          <Skeleton className="h-5 w-96" />
+      <div className="p-4 sm:p-6 lg:p-8">
+        <div className="mb-6 sm:mb-8 space-y-2">
+          <Skeleton className="h-8 sm:h-9 w-32 sm:w-48" />
+          <Skeleton className="h-4 sm:h-5 w-full max-w-md" />
         </div>
         <div className="space-y-4">
           <Card className="rounded-none">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <Skeleton className="h-20 w-full" />
             </CardContent>
           </Card>
@@ -247,20 +247,20 @@ export function DashboardClient({ initialProfile }: DashboardClientProps) {
   }
 
   return (
-    <div className="p-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">Dashboard</h1>
-        <p className="text-muted-foreground mt-2">
+    <div className="p-4 sm:p-6 lg:p-8">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold">Dashboard</h1>
+        <p className="text-sm sm:text-base text-muted-foreground mt-2">
           Manage your links and see a live preview of your profile
         </p>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-2">
+      <div className="grid gap-6 sm:gap-8 lg:grid-cols-2">
         <div className="space-y-6">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h2 className="text-xl font-semibold">Your Links</h2>
-              <p className="text-sm text-muted-foreground mt-1">
+              <h2 className="text-lg sm:text-xl font-semibold">Your Links</h2>
+              <p className="text-xs sm:text-sm text-muted-foreground mt-1">
                 Manage your icon links and main links
               </p>
             </div>
@@ -274,9 +274,10 @@ export function DashboardClient({ initialProfile }: DashboardClientProps) {
                         size="sm"
                         onClick={handleRefresh}
                         disabled={isLoadingCounts || isRefreshing}
+                        className="text-xs sm:text-sm"
                       >
                         <RefreshCw className={`h-4 w-4 ${isLoadingCounts || isRefreshing ? "animate-spin" : ""}`} />
-                        Refresh
+                        <span className="hidden sm:inline">Refresh</span>
                       </Button> as React.ReactElement
                     }
                   />
@@ -285,9 +286,10 @@ export function DashboardClient({ initialProfile }: DashboardClientProps) {
                 <Tooltip>
                   <TooltipTrigger
                     render={
-                      <Button onClick={() => setAddDialogOpen(true)} size="sm">
+                      <Button onClick={() => setAddDialogOpen(true)} size="sm" className="text-xs sm:text-sm">
                         <Plus className="h-4 w-4" />
-                        <span>Add Link</span>
+                        <span className="hidden sm:inline">Add Link</span>
+                        <span className="sm:hidden">Add</span>
                       </Button> as React.ReactElement
                     }
                   />
@@ -299,7 +301,7 @@ export function DashboardClient({ initialProfile }: DashboardClientProps) {
 
           {links.length === 0 ? (
             <Card className="rounded-none">
-              <CardContent className="p-12">
+              <CardContent className="p-6 sm:p-12">
                 <Empty>
                   <EmptyHeader>
                     <EmptyMedia variant="icon">
@@ -399,14 +401,14 @@ export function DashboardClient({ initialProfile }: DashboardClientProps) {
 
         <div className="lg:sticky lg:top-8 lg:h-fit">
           <div className="mb-4">
-            <h2 className="text-xl font-semibold mb-1">Live Preview</h2>
-            <p className="text-sm text-muted-foreground mb-4">
+            <h2 className="text-lg sm:text-xl font-semibold mb-1">Live Preview</h2>
+            <p className="text-xs sm:text-sm text-muted-foreground mb-4">
               See how your profile looks to visitors
             </p>
             {displayProfile.username && (
               <div className="flex items-center justify-center mb-4">
-                <div className="flex items-center gap-2 rounded-full border bg-background px-4 py-2.5 shadow-sm max-w-sm w-full">
-                  <span className="flex-1 font-medium text-sm text-foreground truncate">
+                <div className="flex items-center gap-2 rounded-full border bg-background px-3 sm:px-4 py-2 sm:py-2.5 shadow-sm max-w-sm w-full">
+                  <span className="flex-1 font-medium text-xs sm:text-sm text-foreground truncate">
                     oneurl.live/{displayProfile.username}
                   </span>
                   <button
@@ -420,7 +422,7 @@ export function DashboardClient({ initialProfile }: DashboardClientProps) {
               </div>
             )}
           </div>
-          <div className="bg-gradient-to-b from-background to-muted/20 p-4 rounded-none overflow-auto max-h-[calc(100vh-200px)]">
+          <div className="bg-gradient-to-b from-background to-muted/20 p-2 sm:p-4 rounded-none overflow-auto max-h-[calc(100vh-120px)] sm:max-h-[calc(100vh-200px)]">
             <ProfilePreview
               name={displayProfile.name}
               username={displayProfile.username}
