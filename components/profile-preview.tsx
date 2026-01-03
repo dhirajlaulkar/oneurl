@@ -91,14 +91,14 @@ export function ProfilePreview({
     <div className={`bg-zinc-100 mx-auto w-full max-w-lg px-4 sm:px-6 lg:px-8 flex flex-col py-12 ${className || ""}`}>
       <main className="font-mono text-sm relative">
         <section className="relative">
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-3 mb-6">
             {avatarUrl && (
-              <div className="size-10 rounded-full overflow-hidden bg-gray-200">
+              <div className="size-14 rounded-full overflow-hidden bg-gray-200 shrink-0">
                 <Image
                   src={avatarUrl}
                   alt={name}
-                  width={40}
-                  height={40}
+                  width={64}
+                  height={64}
                   className="w-full h-full object-cover select-none"
                   draggable={false}
                 />
@@ -123,7 +123,7 @@ export function ProfilePreview({
           </div>
 
           {bio && (
-            <div className="relative rounded-md transition-all mb-4 border border-transparent">
+            <div className="relative rounded-md transition-all mb-6 border border-transparent">
               <div className="wrap-break-word overflow-wrap-anywhere text-sm mx-auto leading-relaxed">
                 <div className="mt-1 mb-1 wrap-break-word overflow-wrap-anywhere">
                   {parseBioWithCode(bio)}
@@ -133,7 +133,7 @@ export function ProfilePreview({
           )}
 
           {iconLinks.length > 0 && (
-            <div className="mb-4">
+            <div className="mb-6">
               <IconLinksList links={iconLinks} />
             </div>
           )}
@@ -141,14 +141,14 @@ export function ProfilePreview({
 
         {regularLinks.length > 0 && (
           <>
-            <hr className="h-px bg-transparent border-t-2 border-dashed border-zinc-200 my-4" />
+            <hr className="h-px bg-transparent border-t-2 border-dashed border-zinc-200 my-6" />
             <MainLinksList links={regularLinks} className="mt-4" />
           </>
         )}
 
         {iconLinks.length > 0 && regularLinks.length === 0 && (
           <>
-            <hr className="h-px bg-transparent border-t-2 border-dashed border-zinc-200 my-4" />
+            <hr className="h-px bg-transparent border-t-2 border-dashed border-zinc-200 my-6" />
             <div className="py-8 flex-1 flex items-center justify-center">
               <Empty>
                 <EmptyHeader>
@@ -179,9 +179,9 @@ export function ProfilePreview({
 
         {calLink && (
           <>
-            <hr className="h-px bg-transparent border-t-2 border-dashed border-zinc-200 my-4" />
+            <hr className="h-px bg-transparent border-t-2 border-dashed border-zinc-200 my-6" />
 
-            <div className="space-y-3">
+            <div className="space-y-4">
               <div>
                 <h2 className="text-xs font-medium text-zinc-900 mb-1">Book a Meeting</h2>
                 <p className="text-xs text-zinc-600">Schedule a time to chat with me!</p>

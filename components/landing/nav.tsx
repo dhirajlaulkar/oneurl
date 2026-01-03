@@ -16,7 +16,7 @@ export function LandingNav() {
              className="w-20 h-20"
            />
         </Link>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4">
           <Button 
             render={<Link href="/login" />} 
             className="text-sm font-medium bg-zinc-900 text-white border-zinc-900 hover:bg-zinc-800 hover:border-zinc-800 transition-colors"

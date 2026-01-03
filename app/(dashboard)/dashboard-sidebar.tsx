@@ -9,6 +9,7 @@ import {
   BarChart3,
   Settings,
   LogOut,
+  MessageCircle,
 } from "lucide-react";
 import {
   Sidebar,
@@ -29,6 +30,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { getAvatarUrl } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
+import { FeedbackDialog } from "@/components/feedback-dialog";
 
 interface DashboardSidebarProps {
   user: {
@@ -97,6 +99,26 @@ export function DashboardSidebar({ user }: DashboardSidebarProps) {
                   </SidebarMenuItem>
                 );
               })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <FeedbackDialog
+                  trigger={
+                    <SidebarMenuButton
+                      render={
+                        <button type="button" className="w-full text-left">
+                          <MessageCircle />
+                          <span>Feedback</span>
+                        </button>
+                      }
+                    />
+                  }
+                />
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

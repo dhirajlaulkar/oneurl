@@ -14,10 +14,11 @@ import {
   PopoverPopup,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { LogOut } from "lucide-react";
+import { LogOut, MessageCircle } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { FeedbackDialog } from "@/components/feedback-dialog";
 
 interface DashboardMobileNavProps {
   user: {
@@ -116,6 +117,18 @@ export function DashboardMobileNav({ user }: DashboardMobileNavProps) {
                   </p>
                 )}
               </div>
+              <FeedbackDialog
+                trigger={
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start rounded-lg"
+                    onClick={() => setIsPopoverOpen(false)}
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    <span>Feedback</span>
+                  </Button>
+                }
+              />
               <Button
                 variant="destructive"
                 className="w-full justify-start rounded-lg border border-red-200/50 shadow-sm hover:bg-red-600 hover:border-red-300/50 transition-colors"
