@@ -154,16 +154,18 @@ function DialogDescription({
 
 function DialogPanel({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <ScrollArea>
-      <div
-        className={cn(
-          "px-6 in-[[data-slot=dialog-popup]:has([data-slot=dialog-header])]:pt-1 in-[[data-slot=dialog-popup]:not(:has([data-slot=dialog-header]))]:pt-6 in-[[data-slot=dialog-popup]:not(:has([data-slot=dialog-footer]))]:pb-6! in-[[data-slot=dialog-popup]:not(:has([data-slot=dialog-footer].border-t))]:pb-1 pb-6",
-          className,
-        )}
-        data-slot="dialog-panel"
-        {...props}
-      />
-    </ScrollArea>
+    <div className="flex-1 min-h-0 overflow-hidden">
+      <ScrollArea className="h-full">
+        <div
+          className={cn(
+            "px-6 in-[[data-slot=dialog-popup]:has([data-slot=dialog-header])]:pt-1 in-[[data-slot=dialog-popup]:not(:has([data-slot=dialog-header]))]:pt-6 in-[[data-slot=dialog-popup]:not(:has([data-slot=dialog-footer]))]:pb-6! in-[[data-slot=dialog-popup]:not(:has([data-slot=dialog-footer].border-t))]:pb-1 pb-6",
+            className,
+          )}
+          data-slot="dialog-panel"
+          {...props}
+        />
+      </ScrollArea>
+    </div>
   );
 }
 
