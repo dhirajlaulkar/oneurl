@@ -33,6 +33,20 @@ export async function LandingHero() {
           <p className="text-sm text-zinc-600 leading-relaxed max-w-lg mx-auto">
             Create a beautiful profile page to share all your important links in one place. Open source alternative to Linktree.
           </p>
+          <div className="pt-2 flex justify-center">
+            <a
+              href="https://www.producthunt.com/products/oneurl?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-oneurl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                alt="OneURL - OneURL for all your links, open-source alternative linktree | Product Hunt"
+                width="250"
+                height="54"
+                src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1057991&theme=light&t=1767507366892"
+              />
+            </a>
+          </div>
         </div>
         {avatarData.length > 0 && (
           <div className="flex flex-col items-center gap-3 pt-4">
