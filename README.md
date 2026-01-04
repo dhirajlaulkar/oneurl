@@ -157,24 +157,15 @@ oneurl/
 └── public/                # Static assets
 ```
 
-## Available Scripts
+## Star History
 
-**Frontend:**
-
-- `bun run dev` - Start Next.js development server
-- `bun run build` - Build for production
-- `bun run start` - Start production server
-- `bun run lint` - Run ESLint
-
-**Backend:**
-
-- `bun run dev:backend` - Start backend development server
-- `bun run build:backend` - Build backend for production
-- `bun run start:backend` - Start backend production server
-
-**Both:**
-
-- `bun run dev:all` - Run both frontend and backend in development mode
+<a href="https://www.star-history.com/#KartikLabhshetwar/oneurl&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=KartikLabhshetwar/oneurl&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=KartikLabhshetwar/oneurl&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=KartikLabhshetwar/oneurl&type=date&legend=top-left" />
+ </picture>
+</a>
 
 ## Contributing
 
